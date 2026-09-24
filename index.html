@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LogiFlow — Painel de Operações</title>
+  <meta name="description" content="Sistema interativo de gestão logística com 7 algoritmos greedy aplicados a problemas reais de uma transportadora." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/modules.css" />
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">🚚</div>
+      <div class="brand-text">
+        <span class="brand-name">LogiFlow</span>
+        <span class="brand-sub">Painel de Operações</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section-label">Dia de Operação</div>
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <button class="nav-item active" data-module="dashboard" id="nav-dashboard">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Dashboard</span>
+        <span class="nav-badge badge-blue">Visão Geral</span>
+      </button>
+      <button class="nav-item" data-module="knapsack" id="nav-knapsack">
+        <span class="nav-icon">📦</span>
+        <span class="nav-label">Carregar Caminhão</span>
+        <span class="nav-badge badge-green">Mochila</span>
+      </button>
+      <button class="nav-item" data-module="trucker" id="nav-trucker">
+        <span class="nav-icon">⛽</span>
+        <span class="nav-label">Rota de Abastecimento</span>
+        <span class="nav-badge badge-amber">Caminhoneiro</span>
+      </button>
+      <button class="nav-item" data-module="scheduling" id="nav-scheduling">
+        <span class="nav-icon">📅</span>
+        <span class="nav-label">Escala de Entregas</span>
+        <span class="nav-badge badge-cyan">Agendamento</span>
+      </button>
+      <button class="nav-item" data-module="partitioning" id="nav-partitioning">
+        <span class="nav-icon">👷</span>
+        <span class="nav-label">Alocação de Docas</span>
+        <span class="nav-badge badge-violet">Particionamento</span>
+      </button>
+      <button class="nav-item" data-module="lateness" id="nav-lateness">
+        <span class="nav-icon">⏰</span>
+        <span class="nav-label">Ordem de Despacho</span>
+        <span class="nav-badge badge-rose">EDF</span>
+      </button>
+      <button class="nav-item" data-module="cashier" id="nav-cashier">
+        <span class="nav-icon">💰</span>
+        <span class="nav-label">Caixa COD</span>
+        <span class="nav-badge badge-emerald">Troco</span>
+      </button>
+      <button class="nav-item" data-module="huffman" id="nav-huffman">
+        <span class="nav-icon">🗜️</span>
+        <span class="nav-label">Compressão Rastreio</span>
+        <span class="nav-badge badge-orange">Huffman</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-text">Projeto de Algoritmos — PA</div>
+      <div class="sidebar-footer-sub">Algoritmos Greedy Aplicados</div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="topbar-title" id="topbar-title">Dashboard — Visão do Dia</div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date" id="topbar-date"></div>
+        <div class="topbar-status">
+          <span class="status-dot"></span>
+          <span>Sistema Operacional</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Module Panels (one per module) -->
+    <div class="module-container" id="module-container">
+
+      <!-- DASHBOARD -->
+      <section class="module-panel active" id="panel-dashboard">
+        <div class="module-header">
+          <h1 class="module-title">📊 Visão Geral do Dia</h1>
+          <p class="module-subtitle">Todos os pedidos do dia alimentam os 7 módulos operacionais. Edite os pedidos globais aqui.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="stat-card stat-blue">
+            <div class="stat-icon">📦</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-orders">8</div>
+              <div class="stat-label">Pedidos do Dia</div>
+            </div>
+          </div>
+          <div class="stat-card stat-green">
+            <div class="stat-icon">🚚</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-trucks">3</div>
+              <div class="stat-label">Caminhões Disponíveis</div>
+            </div>
+          </div>
+          <div class="stat-card stat-amber">
+            <div class="stat-icon">⛽</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-distance">420<span style="font-size:1rem">km</span></div>
+              <div class="stat-label">Rota Principal</div>
+            </div>
+          </div>
+          <div class="stat-card stat-violet">
+            <div class="stat-icon">💰</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-revenue">R$12.4k</div>
+              <div class="stat-label">Faturamento Potencial</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2 class="section-title">📋 Pedidos do Dia</h2>
+            <button class="btn btn-secondary" id="btn-add-order">+ Adicionar Pedido</button>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table" id="orders-table">
+              <thead>
+                <tr>
+                  <th>Pedido</th>
+                  <th>Cliente</th>
+                  <th>Peso (kg)</th>
+                  <th>Volume (m³)</th>
+                  <th>Valor (R$)</th>
+                  <th>Início</th>
+                  <th>Fim</th>
+                  <th>Prazo</th>
+                  <th>Exec. (min)</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="orders-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="dashboard-section">
+          <h2 class="section-title">🗺️ Módulos Disponíveis</h2>
+          <div class="modules-grid">
+            <div class="module-card" data-goto="knapsack">
+              <div class="module-card-icon">📦</div>
+              <div class="module-card-title">Carregar Caminhão</div>
+              <div class="module-card-algo">Mochila Fracionária</div>
+              <div class="module-card-desc">Maximize o valor dos pedidos carregados dentro da capacidade do caminhão.</div>
+            </div>
+            <div class="module-card" data-goto="trucker">
+              <div class="module-card-icon">⛽</div>
+              <div class="module-card-title">Rota de Abastecimento</div>
+              <div class="module-card-algo">Problema do Caminhoneiro</div>
+              <div class="module-card-desc">Mínimo de paradas de combustível até o destino mais distante.</div>
+            </div>
+            <div class="module-card" data-goto="scheduling">
+              <div class="module-card-icon">📅</div>
+              <div class="module-card-title">Escala de Entregas</div>
+              <div class="module-card-algo">Interval Scheduling</div>
+              <div class="module-card-desc">Máximo de entregas compatíveis para um único motorista/doca.</div>
+            </div>
+            <div class="module-card" data-goto="partitioning">
+              <div class="module-card-icon">👷</div>
+              <div class="module-card-title">Alocação de Docas</div>
+              <div class="module-card-algo">Interval Partitioning</div>
+              <div class="module-card-desc">Número mínimo de docas para atender todas as janelas de entrega.</div>
+            </div>
+            <div class="module-card" data-goto="lateness">
+              <div class="module-card-icon">⏰</div>
+              <div class="module-card-title">Ordem de Despacho</div>
+              <div class="module-card-algo">Atraso Máximo (EDF)</div>
+              <div class="module-card-desc">Minimize o maior atraso no despacho dos pedidos do dia.</div>
+            </div>
+            <div class="module-card" data-goto="cashier">
+              <div class="module-card-icon">💰</div>
+              <div class="module-card-title">Caixa COD</div>
+              <div class="module-card-algo">Problema da Caixa</div>
+              <div class="module-card-desc">Troco exato com o mínimo de cédulas/moedas para entregas pagas na hora.</div>
+            </div>
+            <div class="module-card" data-goto="huffman">
+              <div class="module-card-icon">🗜️</div>
+              <div class="module-card-title">Compressão de Rastreio</div>
+              <div class="module-card-algo">Código de Huffman</div>
+              <div class="module-card-desc">Comprima os códigos de rastreio antes de enviar ao sistema central.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- KNAPSACK MODULE -->
+      <section class="module-panel" id="panel-knapsack">
+        <div class="module-header">
+          <h1 class="module-title">📦 Carregar o Caminhão</h1>
+          <p class="module-subtitle">
+            <strong>Problema:</strong> O caminhão tem capacidade limitada de peso e volume. Maximize o valor total dos pedidos carregados.
+            <span class="algo-badge badge-green">Mochila Fracionária — O(n log n)</span>
+          </p>
+        </div>
+        <div class="module-layout">
+          <div class="module-controls-panel">
+            <div class="control-group">
+              <label class="control-label">Capacidade do Caminhão (kg)</label>
+              <input type="number" id="knapsack-capacity" class="control-input" value="500" min="50" max="2000" />
+            </div>
+            <div class="control-group">
+              <label class="control-label">Pedidos Disponíveis</label>
+              <div id="knapsack-items-list" class="items-list"></div>
+            </div>
+            <button class="btn btn-primary btn-full" id="btn-knapsack-run">🚀 Otimizar Carga</button>
+            <button class="btn btn-secondary btn-full" id="btn-knapsack-reset">↺ Resetar</button>
+            <div class="theory-box">
+              <div class="theory-title">💡 Critério Guloso</div>
+              <div class="theory-content">Ordenar por <strong>densidade</strong> (valor/peso) em ordem decrescente. Pegar cada item inteiramente enquanto houver espaço; fracionar o último se necessário.</div>
+              <div class="complexity-badge">Θ(n log n) — ordenação domina</div>
+            </div>
+          </div>
+          <div class="module-viz-panel">
+            <div class="viz-container" id="knapsack-viz">
+              <div class="truck-container">
+                <div class="truck-body">
+                  <div class="truck-label">Caminhão</div>
+                  <div class="truck-capacity-bar">
+                    <div class="truck-fill" id="knapsack-truck-fill"></div>
+                    <div class="truck-fill-label" id="knapsack-fill-label">0 kg / 500 kg</div>
+                  </div>
+                  <div class="truck-items" id="knapsack-truck-items"></div>
+                </div>
+              </div>
+              <div class="result-section" id="knapsack-result" style="display:none">
+                <div class="result-title">✅ Resultado Otimizado</div>
+                <div class="result-stats" id="knapsack-stats"></div>
+              </div>
+              <div class="pseudocode-box">
+                <div class="pseudocode-title">Pseudocódigo</div>
+                <pre class="pseudocode" id="knapsack-pseudocode"><code id="knapsack-code">sort items by (value/weight) DESC
+remaining ← capacity
+total_value ← 0
+for each item i in sorted order:
+  if item.weight ≤ remaining:
+    take item fully
+    remaining -= item.weight
+    total_value += item.value
+  else:
+    fraction ← remaining / item.weight
+    take fraction of item
+    total_value += fraction × item.value
+    break
+return total_value</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRUCKER MODULE -->
+      <section class="module-panel" id="panel-trucker">
+        <div class="module-header">
+          <h1 class="module-title">⛽ Rota de Abastecimento</h1>
+          <p class="module-subtitle">
+            <strong>Problema:</strong> O caminhão precisa chegar ao cliente mais distante. Defina o menor número de paradas de combustível.
+            <span class="algo-badge badge-amber">Problema do Caminhoneiro — O(n)</span>
+          </p>
+        </div>
+        <div class="module-layout">
+          <div class="module-controls-panel">
+            <div class="control-group">
+              <label class="control-label">Autonomia do Tanque (km)</label>
+              <input type="number" id="trucker-autonomy" class="control-input" value="150" min="50" max="500" />
+            </div>
+            <div class="control-group">
+              <label class="control-label">Distância Total da Rota (km)</label>
+              <input type="number" id="trucker-distance" class="control-input" value="420" min="100" max="2000" />
+            </div>
+            <div class="control-group">
+              <label class="control-label">Postos (km do início, separados por vírgula)</label>
+              <input type="text" id="trucker-stations" class="control-input" value="80, 140, 200, 260, 310, 380" />
+            </div>
+            <button class="btn btn-primary btn-full" id="btn-trucker-run">🚀 Planejar Rota</button>
+            <button class="btn btn-secondary btn-full" id="btn-trucker-reset">↺ Resetar</button>
+            <div class="result-section" id="trucker-result" style="display:none">
+              <div class="result-title">✅ Paradas Planejadas</div>
+              <div id="trucker-stops-list" class="stops-list"></div>
+            </div>
+            <div class="theory-box">
+              <div class="theory-title">💡 Critério Guloso</div>
+              <div class="theory-content">Sempre viajar o <strong>máximo possível</strong> com o combustível atual. Parar apenas quando o próximo posto não é alcançável.</div>
+              <div class="complexity-badge">Θ(n) — varredura linear</div>
+            </div>
+          </div>
+          <div class="module-viz-panel">
+            <div class="viz-container" id="trucker-viz">
+              <div class="road-container" id="trucker-road"></div>
+              <div class="pseudocode-box">
+                <div class="pseudocode-title">Pseudocódigo</div>
+                <pre class="pseudocode"><code>current ← 0; stops ← []
+while current &lt; destination:
+  next_reachable ← farthest station ≤ current + tank
+  if no station reachable AND current + tank &lt; dest:
+    return IMPOSSIBLE
+  if next_reachable == destination or 
+     current + tank ≥ destination:
+    break
+  stops.append(next_reachable)
+  current ← next_reachable
+return stops</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCHEDULING MODULE -->
+      <section class="module-panel" id="panel-scheduling">
+        <div class="module-header">
+          <h1 class="module-title">📅 Escala de Entregas</h1>
+          <p class="module-subtitle">
+            <strong>Problema:</strong> Clientes pedem janelas de horário específicas. Com um motorista disponível, atenda o máximo de entregas possível.
+            <span class="algo-badge badge-cyan">Interval Scheduling — O(n log n)</span>
+          </p>
+        </div>
+        <div class="module-layout">
+          <div class="module-controls-panel">
+            <button class="btn btn-primary btn-full" id="btn-scheduling-run">🚀 Otimizar Escala</button>
+            <button class="btn btn-secondary btn-full" id="btn-scheduling-reset">↺ Resetar</button>
+            <div class="result-section" id="scheduling-result" style="display:none">
+              <div class="result-title">✅ Entregas Selecionadas</div>
+              <div id="scheduling-selected" class="selected-list"></div>
+            </div>
+            <div class="theory-box">
+              <div class="theory-title">💡 Critério Guloso</div>
+              <div class="theory-content">Ordenar por <strong>horário de término</strong>. Selecionar entrega se seu início é ≥ ao fim da última selecionada.</div>
+              <div class="complexity-badge">Θ(n log n) — ordenação domina</div>
+            </div>
+          </div>
+          <div class="module-viz-panel">
+            <div class="viz-container">
+              <div class="timeline-container" id="scheduling-timeline"></div>
+              <div class="pseudocode-box">
+                <div class="pseudocode-title">Pseudocódigo</div>
+                <pre class="pseudocode"><code>sort intervals by finish time
+selected ← []
+last_finish ← -∞
+for each interval i in sorted order:
+  if i.start ≥ last_finish:
+    selected.append(i)
+    last_finish ← i.finish
+return selected</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PARTITIONING MODULE -->
+      <section class="module-panel" id="panel-partitioning">
+        <div class="module-header">
+          <h1 class="module-title">👷 Alocação de Docas</h1>
+          <p class="module-subtitle">
+            <strong>Problema:</strong> Todas as entregas do dia precisam ser realizadas. Quantas docas/motoristas são necessários no mínimo?
+            <span class="algo-badge badge-violet">Interval Partitioning — O(n log n)</span>
+          </p>
+        </div>
+        <div class="module-layout">
+          <div class="module-controls-panel">
+            <button class="btn btn-primary btn-full" id="btn-partitioning-run">🚀 Alocar Docas</button>
+            <button class="btn btn-secondary btn-full" id="btn-partitioning-reset">↺ Resetar</button>
+            <div class="result-section" id="partitioning-result" style="display:none">
+              <div class="result-title">✅ Alocação Calculada</div>
+              <div id="partitioning-stats" class="result-stats"></div>
+            </div>
+            <div class="theory-box">
+              <div class="theory-title">💡 Critério Guloso</div>
+              <div class="theory-content">Ordenar por <strong>horário de início</strong>. Para cada entrega, alocar à primeira doca disponível (cujo término ≤ início atual). Se nenhuma disponível, abrir nova doca.</div>
+              <div class="complexity-badge">Θ(n log n) — min-heap de docas</div>
+            </div>
+          </div>
+          <div class="module-viz-panel">
+            <div class="viz-container">
+              <div class="docks-container" id="partitioning-docks"></div>
+              <div class="pseudocode-box">
+                <div class="pseudocode-title">Pseudocódigo</div>
+                <pre class="pseudocode"><code>sort intervals by start time
+docks ← min-heap (by finish time)
+for each interval i:
+  if docks not empty AND 
+     docks.min.finish ≤ i.start:
+    reassign earliest-free dock to i
+  else:
+    open new dock for i
+  docks.push(i)
+return num_docks</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LATENESS MODULE -->
+      <section class="module-panel" id="panel-lateness">
+        <div class="module-header">
+          <h1 class="module-title">⏰ Ordem de Despacho</h1>
+          <p class="module-subtitle">
+            <strong>Problema:</strong> Cada pedido tem um prazo (deadline) e tempo de execução. Minimize o maior atraso na fila de despacho.
+            <span class="algo-badge badge-rose">Atraso Máximo / EDF — O(n log n)</span>
+          </p>
+        </div>
+        <div class="module-layout">
+          <div class="module-controls-panel">
+            <button class="btn btn-primary btn-full" id="btn-lateness-run">🚀 Ordenar Despacho</button>
+            <button class="btn btn-secondary btn-full" id="btn-lateness-compare">⚖️ Comparar com Aleatório</button>
+            <button class="btn btn-secondary btn-full" id="btn-lateness-reset">↺ Resetar</button>
+            <div class="result-section" id="lateness-result" style="display:none">
+              <div class="result-title">✅ Resultado EDF</div>
+              <div id="lateness-stats" class="result-stats"></div>
+            </div>
+            <div class="theory-box">
+              <div class="theory-title">💡 Critério Guloso</div>
+              <div class="theory-content"><strong>EDF — Earliest Deadline First:</strong> Processar sempre o pedido com prazo mais próximo. Minimiza o atraso máximo de forma ótima.</div>
+              <div class="complexity-badge">Θ(n log n) — ordenação por deadline</div>
+            </div>
+          </div>
+          <div class="module-viz-panel">
+            <div class="viz-container">
+              <div class="dispatch-timeline" id="lateness-timeline"></div>
+              <div class="pseudocode-box">
+                <div class="pseudocode-title">Pseudocódigo</div>
+                <pre class="pseudocode"><code>sort jobs by deadline (d_i) ASC
+time ← 0; max_lateness ← 0
+for each job j in EDF order:
+  start ← time
+  finish ← time + j.exec_time
+  lateness ← max(0, finish - j.deadline)
+  max_lateness ← max(max_lateness, lateness)
+  time ← finish
+return max_lateness</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CASHIER MODULE -->
+      <section class="module-panel" id="panel-cashier">
+        <div class="module-header">
+          <h1 class="module-title">💰 Caixa COD</h1>
+          <p class="module-subtitle">
+            <strong>Problema:</strong> Cliente paga a entrega em dinheiro. Calcule o troco com o mínimo de cédulas e moedas.
+            <span class="algo-badge badge-emerald">Problema da Caixa — O(n)</span>
+          </p>
+        </div>
+        <div class="module-layout">
+          <div class="module-controls-panel">
+            <div class="control-group">
+              <label class="control-label">Valor do Pedido (R$)</label>
+              <input type="number" id="cashier-price" class="control-input" value="87.50" step="0.01" min="0" />
+            </div>
+            <div class="control-group">
+              <label class="control-label">Valor Recebido (R$)</label>
+              <input type="number" id="cashier-paid" class="control-input" value="100.00" step="0.01" min="0" />
+            </div>
+            <div class="control-group">
+              <label class="control-label">Modo</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="cashier-mode" value="canonical" checked id="cashier-canonical" />
+                  <span>🇧🇷 Sistema Brasileiro (Ótimo)</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="cashier-mode" value="counter" id="cashier-counter" />
+                  <span>❌ Contraexemplo Didático</span>
+                </label>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" id="btn-cashier-run">🚀 Calcular Troco</button>
+            <button class="btn btn-secondary btn-full" id="btn-cashier-reset">↺ Resetar</button>
+            <div class="theory-box">
+              <div class="theory-title">💡 Critério Guloso</div>
+              <div class="theory-content">Sempre escolher a <strong>maior denominação</strong> que cabe no valor restante. Funciona para sistemas <em>canônicos</em> (como o Real brasileiro).</div>
+              <div class="complexity-badge">Θ(n) onde n = nº de denominações</div>
+            </div>
+          </div>
+          <div class="module-viz-panel">
+            <div class="viz-container">
+              <div class="cashier-display" id="cashier-display">
+                <div class="cashier-placeholder">Configure os valores e clique em Calcular Troco</div>
+              </div>
+              <div class="pseudocode-box">
+                <div class="pseudocode-title">Pseudocódigo</div>
+                <pre class="pseudocode"><code>change ← paid - price
+denominations ← [100, 50, 20, 10, 5, 2, 1,
+                  0.50, 0.25, 0.10, 0.05, 0.01]
+result ← {}
+for each d in denominations:
+  count ← floor(change / d)
+  if count > 0:
+    result[d] ← count
+    change -= count × d
+return result</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HUFFMAN MODULE -->
+      <section class="module-panel" id="panel-huffman">
+        <div class="module-header">
+          <h1 class="module-title">🗜️ Compressão de Rastreio</h1>
+          <p class="module-subtitle">
+            <strong>Problema:</strong> Comprimir os códigos de rastreio dos pedidos antes de enviar ao sistema central, economizando armazenamento e banda.
+            <span class="algo-badge badge-orange">Código de Huffman — O(n log n)</span>
+          </p>
+        </div>
+        <div class="module-layout">
+          <div class="module-controls-panel">
+            <div class="control-group">
+              <label class="control-label">Texto de Rastreio</label>
+              <textarea id="huffman-input" class="control-textarea" rows="5" placeholder="Cole ou edite os códigos de rastreio aqui...">LF2024SP001 LF2024SP002 LF2024RJ001 LF2024MG001 LF2024SP003 LF2024RJ002 LF2024BA001</textarea>
+            </div>
+            <button class="btn btn-primary btn-full" id="btn-huffman-run">🚀 Comprimir</button>
+            <button class="btn btn-secondary btn-full" id="btn-huffman-reset">↺ Resetar</button>
+            <div class="result-section" id="huffman-result" style="display:none">
+              <div class="result-title">✅ Resultado da Compressão</div>
+              <div id="huffman-stats" class="result-stats"></div>
+            </div>
+            <div class="theory-box">
+              <div class="theory-title">💡 Critério Guloso</div>
+              <div class="theory-content">Fila de prioridade mínima: sempre combinar os dois nós com <strong>menor frequência</strong>. Resultado: árvore de prefixo ótima com códigos de comprimento variável.</div>
+              <div class="complexity-badge">Θ(n log n) — heap de prioridade</div>
+            </div>
+          </div>
+          <div class="module-viz-panel">
+            <div class="viz-container huffman-viz">
+              <div class="huffman-tree-container" id="huffman-tree"></div>
+              <div class="huffman-table-container" id="huffman-table"></div>
+              <div class="pseudocode-box">
+                <div class="pseudocode-title">Pseudocódigo</div>
+                <pre class="pseudocode"><code>freq ← count frequency of each char
+Q ← min-heap of (freq, char) nodes
+while |Q| > 1:
+  left ← Q.extract_min()
+  right ← Q.extract_min()
+  parent ← new node(left.freq + right.freq)
+  parent.left ← left
+  parent.right ← right
+  Q.insert(parent)
+root ← Q.extract_min()
+codes ← assign_codes(root, "")</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- end module-container -->
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
