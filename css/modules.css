@@ -1,0 +1,302 @@
+/* =====================================================
+   LogiFlow — Modules: specific module styles
+   ===================================================== */
+
+/* ----- Knapsack Module Color ----- */
+#panel-knapsack .module-title { 
+  background: linear-gradient(135deg, #4ade80, #22d3ee);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ----- Trucker Module Color ----- */
+#panel-trucker .module-title {
+  background: linear-gradient(135deg, #fbbf24, #fb923c);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ----- Scheduling Module Color ----- */
+#panel-scheduling .module-title {
+  background: linear-gradient(135deg, #22d3ee, #3b82f6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ----- Partitioning Module Color ----- */
+#panel-partitioning .module-title {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ----- Lateness Module Color ----- */
+#panel-lateness .module-title {
+  background: linear-gradient(135deg, #fb7185, #f43f5e);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ----- Cashier Module Color ----- */
+#panel-cashier .module-title {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ----- Huffman Module Color ----- */
+#panel-huffman .module-title {
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ----- Dashboard Specific ----- */
+#panel-dashboard .module-title {
+  background: linear-gradient(135deg, #f0f4ff, #8fa0bc);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ----- Table action cells ----- */
+.table-action-cell {
+  display: flex;
+  gap: 6px;
+}
+
+/* ----- Inline editable fields in table ----- */
+.table-input {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.83rem;
+  width: 100%;
+  min-width: 50px;
+}
+
+.table-input:focus {
+  outline: 1px solid var(--blue);
+  border-radius: 4px;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  padding: 1px 4px;
+}
+
+/* ----- Knapsack density ratio badge ----- */
+.density-badge {
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  background: rgba(34,211,238,0.1);
+  color: var(--cyan);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ----- Partitioning depth indicator ----- */
+.depth-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(167,139,250,0.08);
+  border: 1px solid rgba(167,139,250,0.25);
+  border-radius: var(--radius-lg);
+  margin-bottom: 12px;
+}
+
+.depth-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--violet);
+  line-height: 1;
+}
+
+.depth-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ----- Lateness compare section ----- */
+.lateness-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.lateness-compare-panel {
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  border: 1px solid;
+}
+
+.lateness-compare-panel.edf {
+  border-color: rgba(52,211,153,0.4);
+  background: rgba(52,211,153,0.04);
+}
+
+.lateness-compare-panel.random {
+  border-color: rgba(248,113,113,0.4);
+  background: rgba(248,113,113,0.04);
+}
+
+.compare-panel-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.lateness-compare-panel.edf .compare-panel-title { color: var(--emerald); }
+.lateness-compare-panel.random .compare-panel-title { color: var(--error); }
+
+/* ----- Progress step indicator ----- */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.step-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.step-dot.active { background: var(--blue); box-shadow: 0 0 6px var(--blue); }
+.step-dot.done   { background: var(--emerald); }
+
+/* ----- Huffman frequency bar ----- */
+.freq-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 0.78rem;
+}
+
+.freq-bar-char {
+  width: 24px;
+  text-align: center;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  font-weight: 700;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-sm);
+  padding: 1px 4px;
+}
+
+.freq-bar-track {
+  flex: 1;
+  height: 12px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.freq-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--orange), var(--amber));
+  transition: width 0.6s ease;
+}
+
+.freq-bar-count {
+  width: 28px;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ----- Compression ratio display ----- */
+.compression-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 16px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.compression-stat {
+  text-align: center;
+}
+
+.compression-stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.compression-stat-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.compression-arrow {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+}
+
+/* ----- Road (Trucker) ----- */
+.road-svg-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+/* ----- Responsive adjustments ----- */
+@media (max-width: 900px) {
+  .module-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .module-controls-panel {
+    position: static;
+  }
+
+  .lateness-compare {
+    grid-template-columns: 1fr;
+  }
+
+  .counterexample-compare {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .module-panel {
+    padding: 16px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .topbar-date { display: none; }
+}
