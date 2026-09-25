@@ -161,6 +161,15 @@ function init() {
     showToast('Pedido adicionado!', 'success');
   });
 
+  // Reset orders button
+  document.getElementById('btn-reset-orders')?.addEventListener('click', () => {
+    setOrders(JSON.parse(JSON.stringify(DEFAULT_ORDERS)));
+    const searchInput = document.getElementById('input-search-order');
+    if (searchInput) searchInput.value = '';
+    renderOrdersTable();
+    showToast('Lista de pedidos restaurada!', 'info');
+  });
+
   // Search input functionality
   document.getElementById('input-search-order')?.addEventListener('input', () => {
     renderOrdersTable();
