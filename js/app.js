@@ -48,7 +48,16 @@ function navigateTo(moduleId) {
 function renderOrdersTable() {
   const tbody = document.getElementById('orders-tbody');
   if (!tbody) return;
-  const orders = getOrders();
+  let orders = getOrders();
+
+  const searchInput = document.getElementById('input-search-order');
+  if (searchInput && searchInput.value.trim() !== '') {
+    const term = searchInput.value.trim().toLowerCase();
+    orders = orders.filter(o => 
+      o.id.toLowerCase().includes(term) || 
+      o.client.toLowerCase().includes(term)
+    );
+  }
 
   tbody.innerHTML = orders.map(o => `
     <tr data-id="${o.id}">
@@ -150,6 +159,11 @@ function init() {
   document.getElementById('btn-add-order')?.addEventListener('click', () => {
     addOrder({});
     showToast('Pedido adicionado!', 'success');
+  });
+
+  // Search input functionality
+  document.getElementById('input-search-order')?.addEventListener('input', () => {
+    renderOrdersTable();
   });
 
   // Sidebar toggle
