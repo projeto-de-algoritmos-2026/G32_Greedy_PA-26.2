@@ -136,7 +136,10 @@
         <div class="dashboard-section">
           <div class="section-header">
             <h2 class="section-title">📋 Pedidos do Dia</h2>
-            <button class="btn btn-secondary" id="btn-add-order">+ Adicionar Pedido</button>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <input type="text" id="input-search-order" class="control-input" placeholder="Buscar por cliente ou ID..." style="padding: 6px 12px; border-radius: 6px;" />
+              <button class="btn btn-secondary" id="btn-add-order">+ Adicionar Pedido</button>
+            </div>
           </div>
           <div class="table-wrapper">
             <table class="data-table" id="orders-table">
